@@ -110,6 +110,8 @@ const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbus
     {
         response += "Important: Based on the measurements you entered, your bra estimation may not be as accurate. A variety of factors play into finding the perfect bra, this is only a starting point!";
     }
+    var adjBand;
+
 
     // final bra size calculation
     if ((snugbust - tightbust) > 2.5)
