@@ -9,6 +9,53 @@ const from_who = 'marianabenedett@gmail.com';
 const restService = express();
 restService.use(bodyParser.json());
 
+var uscup = Array();
+var ukcup = Array();
+
+uscup[0] = "AA";
+uscup[1] = "A";
+uscup[2] = "B";
+uscup[3] = "C";
+uscup[4] = "D";
+uscup[5] = "DD(E)";
+uscup[6] = "DDD(F)";
+uscup[7] = "G";
+uscup[8] = "H";
+uscup[9] = "I";
+uscup[10] = "J";
+uscup[11] = "K";
+uscup[12] = "L";
+uscup[13] = "M";
+uscup[14] = "N";
+uscup[15] = "O";
+uscup[16] = "P";
+uscup[17] = "Q";
+uscup[18] = "R";
+uscup[19] = "S";
+uscup[20] = "T";
+
+ukcup[0] = "AA";
+ukcup[1] = "A";
+ukcup[2] = "B";
+ukcup[3] = "C";
+ukcup[4] = "D";
+ukcup[5] = "DD";
+ukcup[6] = "E";
+ukcup[7] = "F";
+ukcup[8] = "FF";
+ukcup[9] = "G";
+ukcup[10] = "GG";
+ukcup[11] = "H";
+ukcup[12] = "HH";
+ukcup[13] = "J";
+ukcup[14] = "JJ";
+ukcup[15] = "K"; 
+ukcup[16] = "KK";
+ukcup[17] = "L";
+ukcup[18] = "LL";
+ukcup[19] = "M";
+ukcup[20] = "MM";
+
 const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbust) {
     var response = '';
 
