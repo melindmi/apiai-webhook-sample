@@ -36,10 +36,12 @@ restService.post('/hook', function (req, res) {
                 //Specify email data
                   from: from_who,
                 //The email to contact
-                  to: 'magnomathias21@gmail.com',
+                  to: 'marianabenedett@gmail.com',
                 //Subject and text data  
-                  subject: 'Hello from Mailgun',
-                  html: 'Hello, This is not a plain-text email, I wanted to test some spicy Mailgun sauce in NodeJS! <a href="http://0.0.0.0:3030/validate?' + req.params.mail + '">Click here to add your email address to a mailing list</a>'
+                  subject: 'Bratuner - New request',
+                  html: 'Hello, This is a new request: ' + 
+                        '<ul><li>Email: ' + email + '</li>' +
+                        '<li>Leaning bust: ' + leaningbust + '</li></ul>'
                 }
 
                 //Invokes the method to send emails given the above data with the helper library
