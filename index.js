@@ -63,13 +63,13 @@ const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbus
     //empty field errors: 
     if (snugbust == 0 || tightbust == 0 || standbust == 0 || leaningbust == 0 || lyingbust == 0)
     {
-        response += "<br />You must enter your measurements, as numbers, for all fields.";
+        response += "<br />Please enter your measurements, as numbers, for all fields.";
     }
     
     // errors quando user enters 
     if ((snugbust - tightbust) < 1 && snugbust <= 32)
     {
-        response += "<br />Your measurements indicate that you may be more comfortable Sister Sizing Up. Try going up a band size and down a cup size.";
+        response += "<br />- According to her measurements, she may be more confortable Sister Sizing Up. Advice to go up a band size and down a cup size.";
     }
 
     var band = 2 * Math.round(snugbust / 2);
@@ -77,7 +77,7 @@ const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbus
     
     if ((band - tightbust) < 2)
     {
-        response += "<br />You might need to Sister Size Up because your calculated band may be too tight! Try going up a band size and down a cup size.";
+        response += "<br />- The calculated band may be too tight and may need to Sister Size Up. Going up a band size and down a cup size may help.";
     }
     // END VALIDATE
 
@@ -108,7 +108,7 @@ const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbus
 
     if ((cupNumber1 >= 9) || (cupNumber2 >= 9) && (tightbust > 32)) 
     {
-        response += "<br />Important: Based on the measurements you entered, your bra estimation may not be as accurate. A variety of factors play into finding the perfect bra, this is only a starting point!";
+        response += "<br />- Important: Based on measurements entered, the bra estimation may not be as accurate. A variety of factors play into finding the perfect bra, this is only a starting point!";
     }
     var adjBand;
 
@@ -121,7 +121,7 @@ const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbus
         adjusCup2 = uscup[cupNumber2 + 1];
         adjukCup1 = ukcup[cupNumber1 + 1];
         adjukCup2 = ukcup[cupNumber2 + 1];
-        response += "<br />Your band has been Sister Sized Down for added support";
+        response += "<br />- The band has been Sister Sized Down for added support";
     }
 
     else
@@ -137,7 +137,7 @@ const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbus
     {
         // usBraSize = document.getElementById("usBra").innerHTML = adjBand + adjusCup1 + "/" + adjusCup2;
         ukBraSize = adjBand + adjukCup1 + "/" + adjukCup2;
-        response += "<br />The difference between your underbust and bust is not a whole number, so either of these two cup sizes may work.";
+        response += "<br />- The difference between the underbust and bust is not a whole number, so either of these two cup sizes may work.";
     }
 
     else
@@ -240,7 +240,7 @@ restService.post('/hook', function (req, res) {
                         '<li>standbust bust: ' + standbust + '</li>' +
                         '<li>tightbust bust: ' + tightbust + '</li></ul>' + 
 
-                        'Calculator result: ' + result
+                        '<b>Calculator result:</b> ' + result
                 }
 
                 //Invokes the method to send emails given the above data with the helper library
