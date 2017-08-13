@@ -176,6 +176,9 @@ const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbus
         var ukCup2Down = ukcup[cupNumber2 - 1];
     }
     
+    var ukSisterUp;
+    var ukSisterDown;
+    
     if (cupNumber1 != cupNumber2)
     {
         // usSisterUp = document.getElementById("usBraUp").innerHTML = bandUp + usCup1Down + "/" + usCup2Down;
