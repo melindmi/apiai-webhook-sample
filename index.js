@@ -10,18 +10,19 @@ const restService = express();
 restService.use(bodyParser.json());
 
 const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbust) {
+    var response = '';
 
     // VALIDATE
     //empty field errors: 
     if (snugbust == 0 || tightbust == 0 || standbust == 0 || leaningbust == 0 || lyingbust == 0)
     {
-        return "You must enter your measurements, as numbers, for all fields.";
+        response += "You must enter your measurements, as numbers, for all fields.";
     }
     
     // errors quando user enters 
     if ((snugbust - tightbust) < 1 && snugbust <= 32)
     {
-        return "Your measurements indicate that you may be more comfortable Sister Sizing Up. Try going up a band size and down a cup size.";
+        response += "Your measurements indicate that you may be more comfortable Sister Sizing Up. Try going up a band size and down a cup size.";
     }
 
     var band = 2 * Math.round(snugbust / 2);
@@ -29,7 +30,7 @@ const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbus
     
     if ((band - tightbust) < 2)
     {
-        return "You might need to Sister Size Up because your calculated band may be too tight! Try going up a band size and down a cup size.";
+        response += "You might need to Sister Size Up because your calculated band may be too tight! Try going up a band size and down a cup size.";
     }
     // END VALIDATE
 
@@ -61,7 +62,7 @@ const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbus
 
     if ((cupNumber1 >= 9) || (cupNumber2 >= 9) && (tightbust > 32)) 
     {
-        return "Important: Based on the measurements you entered, your bra estimation may not be as accurate. A variety of factors play into finding the perfect bra, this is only a starting point!";
+        response += "Important: Based on the measurements you entered, your bra estimation may not be as accurate. A variety of factors play into finding the perfect bra, this is only a starting point!";
     }
 
     // final bra size calculation
@@ -72,7 +73,7 @@ const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbus
         adjusCup2 = uscup[cupNumber2 + 1];
         adjukCup1 = ukcup[cupNumber1 + 1];
         adjukCup2 = ukcup[cupNumber2 + 1];
-        return "Your band has been Sister Sized Down for added support";
+        response += "Your band has been Sister Sized Down for added support";
     }
 
     else
@@ -83,8 +84,6 @@ const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbus
         adjukCup1 = ukCup1;
         adjukCup2 = ukCup2;
     }
-
-    var response = '';
 
     if (cupNumber1 != cupNumber2)
     {
