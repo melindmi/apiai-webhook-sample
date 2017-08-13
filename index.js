@@ -47,8 +47,12 @@ const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbus
 
     //cup calculation
 
-    cupNumber1 = Math.floor(adjBust - snugbust);
-    cupNumber2 = Math.ceil(adjBust - snugbust);
+    var cupNumber1 = Math.floor(adjBust - snugbust);
+    var cupNumber2 = Math.ceil(adjBust - snugbust);
+    var adjusCup1;
+    var adjusCup2;
+    var adjukCup1;
+    var adjukCup2;
     
     var usCup1 = uscup[cupNumber1];
     var usCup2 = uscup[cupNumber2];
