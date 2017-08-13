@@ -25,7 +25,7 @@ const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbus
     }
 
     var band = 2 * Math.round(snugbust / 2);
-    adjUnderbust = snugbust;
+    
     
     if ((band - tightbust) < 2)
     {
@@ -51,8 +51,8 @@ const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbus
 
     //cup calculation
 
-    cupNumber1 = Math.floor(adjBust - adjUnderbust);
-    cupNumber2 = Math.ceil(adjBust - adjUnderbust);
+    cupNumber1 = Math.floor(adjBust - snugbust);
+    cupNumber2 = Math.ceil(adjBust - snugbust);
     
     var usCup1 = uscup[cupNumber1];
     var usCup2 = uscup[cupNumber2];
