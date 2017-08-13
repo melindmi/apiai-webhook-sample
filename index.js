@@ -42,6 +42,12 @@ restService.post('/hook', function (req, res) {
                   html: 'Hello, This is a new request: ' + 
                         '<ul><li>Email: ' + email + '</li>' +
                         '<li>Leaning bust: ' + leaningbust + '</li></ul>'
+                        '<li>lyingbust bust: ' + lyingbust + '</li></ul>'
+                        '<li>snugbust bust: ' + snugbust + '</li></ul>'
+                        '<li>standbust bust: ' + standbust + '</li></ul>'
+                        '<li>tightbust bust: ' + tightbust + '</li></ul>'
+
+
                 }
 
                 //Invokes the method to send emails given the above data with the helper library
