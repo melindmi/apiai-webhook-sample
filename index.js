@@ -132,7 +132,7 @@ const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbus
         adjukCup1 = ukCup1;
         adjukCup2 = ukCup2;
     }
-
+    var ukBraSize;
     if (cupNumber1 != cupNumber2)
     {
         // usBraSize = document.getElementById("usBra").innerHTML = adjBand + adjusCup1 + "/" + adjusCup2;
