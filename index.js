@@ -41,10 +41,10 @@ restService.post('/hook', function (req, res) {
                   subject: 'Bratuner - New request',
                   html: 'Hello, This is a new request: ' + 
                         '<ul><li>Email: ' + email + '</li>' +
-                        '<li>Leaning bust: ' + leaningbust + '</li></ul>'
-                        '<li>lyingbust bust: ' + lyingbust + '</li></ul>'
-                        '<li>snugbust bust: ' + snugbust + '</li></ul>'
-                        '<li>standbust bust: ' + standbust + '</li></ul>'
+                        '<li>Leaning bust: ' + leaningbust + '</li><'
+                        '<li>lyingbust bust: ' + lyingbust + '</li>'
+                        '<li>snugbust bust: ' + snugbust + '</li>'
+                        '<li>standbust bust: ' + standbust + '</li>'
                         '<li>tightbust bust: ' + tightbust + '</li></ul>'
 
 
