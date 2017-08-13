@@ -26,7 +26,7 @@ const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbus
     }
 
     var band = 2 * Math.round(snugbust / 2);
-    
+    var adjBust = leaningbust;
     
     if ((band - tightbust) < 2)
     {
@@ -43,11 +43,6 @@ const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbus
     else if ((leaningbust - standbust) > 2)
     {
         adjBust = (Number(standbust) + Number(leaningbust)) / 2;
-    }
-    
-    else
-    {
-        adjBust = leaningbust;
     }
 
     //cup calculation
