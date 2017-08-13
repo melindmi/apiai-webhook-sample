@@ -146,7 +146,7 @@ const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbus
         ukBraSize = adjBand + adjukCup1;
     }
 
-    response += "<br/><b>Estimated Bra Size: </b>" + ukBraSize;
+    response += "<br/><br/><b>Estimated Bra Size: </b>" + ukBraSize;
 
     //sister size calculation
     var bandUp = (adjBand + 2);
