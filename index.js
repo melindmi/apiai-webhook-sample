@@ -11,6 +11,7 @@ restService.use(bodyParser.json());
 
 const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbust) {
 
+    // VALIDATE
     //empty field errors: 
     if (snugbust == 0 || tightbust == 0 || standbust == 0 || leaningbust == 0 || lyingbust == 0)
     {
@@ -30,26 +31,22 @@ const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbus
     {
         return "You might need to Sister Size Up because your calculated band may be too tight! Try going up a band size and down a cup size.";
     }
+    // END VALIDATE
 
     //bust calculation
-
-    var standBust = standbust;
-    var leanBust = leaningbust;
-    var lieBust = lyingbust;
-
-    if ((standBust - snugbust) <= 7 && ((leanBust - standBust) > 3 || (leanBust - lieBust) > 3))
+    if ((standbust - snugbust) <= 7 && ((leaningbust - standbust) > 3 || (leaningbust - lyingbust) > 3))
     {
-        adjBust = (Number(standBust) + Number(leanBust) + Number(lieBust)) / 3;
+        adjBust = (Number(standbust) + Number(leaningbust) + Number(lyingbust)) / 3;
     }
     
-    else if ((leanBust - standBust) > 2)
+    else if ((leaningbust - standbust) > 2)
     {
-        adjBust = (Number(standBust) + Number(leanBust)) / 2;
+        adjBust = (Number(standbust) + Number(leaningbust)) / 2;
     }
     
     else
     {
-        adjBust = leanBust;
+        adjBust = leaningbust;
     }
 
     //cup calculation
@@ -67,7 +64,7 @@ const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbus
         return "Important: Based on the measurements you entered, your bra estimation may not be as accurate. A variety of factors play into finding the perfect bra, this is only a starting point!";
     }
 
-    //final bra size calculation
+    // final bra size calculation
     if ((snugbust - tightbust) > 2.5)
     {
         adjBand = band - 2;
@@ -87,21 +84,24 @@ const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbus
         adjukCup2 = ukCup2;
     }
 
+    var response = '';
+
     if (cupNumber1 != cupNumber2)
     {
         // usBraSize = document.getElementById("usBra").innerHTML = adjBand + adjusCup1 + "/" + adjusCup2;
-        ukBraSize = document.getElementById("ukBra").innerHTML = adjBand + adjukCup1 + "/" + adjukCup2;
-        return "The difference between your underbust and bust is not a whole number, so either of these two cup sizes may work.";
+        ukBraSize = adjBand + adjukCup1 + "/" + adjukCup2;
+        response += "The difference between your underbust and bust is not a whole number, so either of these two cup sizes may work.";
     }
 
     else
     {
         // usBraSize = document.getElementById("usBra").innerHTML = adjBand + adjusCup1;
-        ukBraSize = document.getElementById("ukBra").innerHTML = adjBand + adjukCup1;
+        ukBraSize = adjBand + adjukCup1;
     }
 
+    response += "<br/>Estimated Bra Size: " + ukBraSize;
+
     //sister size calculation
-    
     var bandUp = (adjBand + 2);
     var bandDown = (adjBand - 2);
     
@@ -133,18 +133,22 @@ const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbus
     {
         // usSisterUp = document.getElementById("usBraUp").innerHTML = bandUp + usCup1Down + "/" + usCup2Down;
         // usSisterDown = document.getElementById("usBraDown").innerHTML = bandDown + usCup1Up + "/" + usCup2Up;
-        ukSisterUp = document.getElementById("ukBraUp").innerHTML = bandUp + ukCup1Down + "/" + ukCup2Down;
-        ukSisterDown = document.getElementById("ukBraDown").innerHTML = bandDown + ukCup1Up + "/" + ukCup2Up;
+        ukSisterUp = bandUp + ukCup1Down + "/" + ukCup2Down;
+        ukSisterDown = bandDown + ukCup1Up + "/" + ukCup2Up;
     }
     
     else
     {
         // usSisterUp = document.getElementById("usBraUp").innerHTML = bandUp + usCup1Down;
         // usSisterDown = document.getElementById("usBraDown").innerHTML = bandDown + usCup1Up;
-        ukSisterUp = document.getElementById("ukBraUp").innerHTML = bandUp + ukCup1Down;
-        ukSisterDown = document.getElementById("ukBraDown").innerHTML = bandDown + ukCup1Up;
+        ukSisterUp = bandUp + ukCup1Down;
+        ukSisterDown = bandDown + ukCup1Up;
     }
 
+    response += "<br /> Nearest Sister Sizes: " + ukSisterUp + "      " + ukSisterDown; 
+
+
+    return response;
 }
 
 restService.post('/hook', function (req, res) {
