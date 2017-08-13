@@ -9,6 +9,144 @@ const from_who = 'marianabenedett@gmail.com';
 const restService = express();
 restService.use(bodyParser.json());
 
+const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbust) {
+
+    //empty field errors: 
+    if (snugbust == 0 || tightbust == 0 || standbust == 0 || leaningbust == 0 || lyingbust == 0)
+    {
+        return "You must enter your measurements, as numbers, for all fields.";
+    }
+    
+    // errors quando user enters 
+    if ((snugbust - tightbust) < 1 && snugbust <= 32)
+    {
+        return "Your measurements indicate that you may be more comfortable Sister Sizing Up. Try going up a band size and down a cup size.";
+    }
+
+    var band = 2 * Math.round(snugbust / 2);
+    adjUnderbust = snugbust;
+    
+    if ((band - tightbust) < 2)
+    {
+        return "You might need to Sister Size Up because your calculated band may be too tight! Try going up a band size and down a cup size.";
+    }
+
+    //bust calculation
+
+    var standBust = standbust;
+    var leanBust = leaningbust;
+    var lieBust = lyingbust;
+
+    if ((standBust - snugbust) <= 7 && ((leanBust - standBust) > 3 || (leanBust - lieBust) > 3))
+    {
+        adjBust = (Number(standBust) + Number(leanBust) + Number(lieBust)) / 3;
+    }
+    
+    else if ((leanBust - standBust) > 2)
+    {
+        adjBust = (Number(standBust) + Number(leanBust)) / 2;
+    }
+    
+    else
+    {
+        adjBust = leanBust;
+    }
+
+    //cup calculation
+
+    cupNumber1 = Math.floor(adjBust - adjUnderbust);
+    cupNumber2 = Math.ceil(adjBust - adjUnderbust);
+    
+    var usCup1 = uscup[cupNumber1];
+    var usCup2 = uscup[cupNumber2];
+    var ukCup1 = ukcup[cupNumber1];
+    var ukCup2 = ukcup[cupNumber2];
+
+    if ((cupNumber1 >= 9) || (cupNumber2 >= 9) && (tightbust > 32)) 
+    {
+        return "Important: Based on the measurements you entered, your bra estimation may not be as accurate. A variety of factors play into finding the perfect bra, this is only a starting point!";
+    }
+
+    //final bra size calculation
+    if ((snugbust - tightbust) > 2.5)
+    {
+        adjBand = band - 2;
+        adjusCup1 = uscup[cupNumber1 + 1];
+        adjusCup2 = uscup[cupNumber2 + 1];
+        adjukCup1 = ukcup[cupNumber1 + 1];
+        adjukCup2 = ukcup[cupNumber2 + 1];
+        return "Your band has been Sister Sized Down for added support";
+    }
+
+    else
+    {
+        adjBand = band;
+        adjusCup1 = usCup1;
+        adjusCup2 = usCup2;
+        adjukCup1 = ukCup1;
+        adjukCup2 = ukCup2;
+    }
+
+    if (cupNumber1 != cupNumber2)
+    {
+        // usBraSize = document.getElementById("usBra").innerHTML = adjBand + adjusCup1 + "/" + adjusCup2;
+        ukBraSize = document.getElementById("ukBra").innerHTML = adjBand + adjukCup1 + "/" + adjukCup2;
+        return "The difference between your underbust and bust is not a whole number, so either of these two cup sizes may work.";
+    }
+
+    else
+    {
+        // usBraSize = document.getElementById("usBra").innerHTML = adjBand + adjusCup1;
+        ukBraSize = document.getElementById("ukBra").innerHTML = adjBand + adjukCup1;
+    }
+
+    //sister size calculation
+    
+    var bandUp = (adjBand + 2);
+    var bandDown = (adjBand - 2);
+    
+    if ((snugbust - tightbust) > 2.5)
+    {
+        var usCup1Up = uscup[cupNumber1 + 2];
+        var usCup2Up = uscup[cupNumber2 + 2];
+        var usCup1Down = uscup[cupNumber1];
+        var usCup2Down = uscup[cupNumber2];
+        var ukCup1Up = ukcup[cupNumber1 + 2];
+        var ukCup2Up = ukcup[cupNumber2 + 2];
+        var ukCup1Down = ukcup[cupNumber1];
+        var ukCup2Down = ukcup[cupNumber2];
+    }
+    
+    else
+    {
+        var usCup1Up = uscup[cupNumber1 + 1];
+        var usCup2Up = uscup[cupNumber2 + 1];
+        var usCup1Down = uscup[cupNumber1 - 1];
+        var usCup2Down = uscup[cupNumber2 - 1];
+        var ukCup1Up = ukcup[cupNumber1 + 1];
+        var ukCup2Up = ukcup[cupNumber2 + 1];
+        var ukCup1Down = ukcup[cupNumber1 - 1];
+        var ukCup2Down = ukcup[cupNumber2 - 1];
+    }
+    
+    if (cupNumber1 != cupNumber2)
+    {
+        // usSisterUp = document.getElementById("usBraUp").innerHTML = bandUp + usCup1Down + "/" + usCup2Down;
+        // usSisterDown = document.getElementById("usBraDown").innerHTML = bandDown + usCup1Up + "/" + usCup2Up;
+        ukSisterUp = document.getElementById("ukBraUp").innerHTML = bandUp + ukCup1Down + "/" + ukCup2Down;
+        ukSisterDown = document.getElementById("ukBraDown").innerHTML = bandDown + ukCup1Up + "/" + ukCup2Up;
+    }
+    
+    else
+    {
+        // usSisterUp = document.getElementById("usBraUp").innerHTML = bandUp + usCup1Down;
+        // usSisterDown = document.getElementById("usBraDown").innerHTML = bandDown + usCup1Up;
+        ukSisterUp = document.getElementById("ukBraUp").innerHTML = bandUp + ukCup1Down;
+        ukSisterDown = document.getElementById("ukBraDown").innerHTML = bandDown + ukCup1Up;
+    }
+
+}
+
 restService.post('/hook', function (req, res) {
 
     console.log('hook request');
@@ -31,6 +169,7 @@ restService.post('/hook', function (req, res) {
                 const tightbust = parameters.tightbust;
 
                 var mailgun = new Mailgun({apiKey: api_key, domain: domain});
+                var result = calculate(leaningbust, lyingbust, snugbust, standbust, tightbust);
 
                 var data = {
                 //Specify email data
@@ -45,9 +184,9 @@ restService.post('/hook', function (req, res) {
                         '<li>lyingbust bust: ' + lyingbust + '</li>' +
                         '<li>snugbust bust: ' + snugbust + '</li>' +
                         '<li>standbust bust: ' + standbust + '</li>' +
-                        '<li>tightbust bust: ' + tightbust + '</li></ul>'
+                        '<li>tightbust bust: ' + tightbust + '</li></ul>' + 
 
-
+                        'Calculator result: ' + result
                 }
 
                 //Invokes the method to send emails given the above data with the helper library
@@ -96,87 +235,140 @@ restService.listen((process.env.PORT || 5000), function () {
     console.log("Server listening");
 });
 
-//exports.helloHttp = function helloHttp (req, res) {
-  // const transporter = nodemailer.createTransport(smtpTransport({
-  //   service: 'gmail',
-  //   auth: {
-  //     user: 'magnomathias21@gmail.com',
-  //     pass: 'churuPITA'
-  //   },
-  //   debug: true
-  // }))
+const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbust) {
 
-  // const parameters = req.body.result.parameters;
-  // const email = parameters.email;
-  // const leaningbust = parameters.leaningbust;
-  // const lyingbust = parameters.lyingbust;
-  // const snugbust = parameters.snugbust;
-  // const standbust = parameters.standbust;
-  // const tightbust = parameters.tightbust;
-  // setup email data with unicode symbols
-  // const mailOptions = {
-  //   to: 'Mariana Benedett <marianabenedett@gmail.com>', // list of receivers
-  //   subject: 'confirmation email', // Subject line
-  //   html: 'hello, please your email' // html text body
-  // }
-// let transporter = nodemailer.createTransport({
-//     sendmail: true,
-//     newline: 'unix',
-//     path: '/usr/sbin/sendmail'
-// });
-// transporter.sendMail({
-//     from: 'magnomathias21@gmail.com',
-//     to: 'marianabenedett@gmail.com',
-//     subject: 'Message',
-//     text: 'I hope this message gets delivered!'
-// }, (err, info) => {
-//     console.log(info.envelope);
-//     console.log(info.messageId);
-// });
+    //empty field errors: 
+    if (snugbust == 0 || tightbust == 0 || standbust == 0 || leaningbust == 0 || lyingbust == 0)
+    {
+        return "You must enter your measurements, as numbers, for all fields.";
+    }
+    
+    // errors quando user enters 
+    if ((snugbust - tightbust) < 1 && snugbust <= 32)
+    {
+        return "Your measurements indicate that you may be more comfortable Sister Sizing Up. Try going up a band size and down a cup size.";
+    }
 
-  // send mail with defined transport object
-  // transporter.sendMail(mailOptions, (error, info) => {
-  //   if (error) {
-  //     return console.log(error)
-  //   }
-  //   console.log('Message %s sent: %s', info.messageId, info.response)
-  // })
+    var band = 2 * Math.round(snugbust / 2);
+    adjUnderbust = snugbust;
+    
+    if ((band - tightbust) < 2)
+    {
+        return "You might need to Sister Size Up because your calculated band may be too tight! Try going up a band size and down a cup size.";
+    }
 
-  //We pass the api_key and domain to the wrapper, or it won't be able to identify + send emails
-    // var mailgun = new Mailgun({apiKey: api_key, domain: domain});
+    //bust calculation
 
-    // var data = {
-    // //Specify email data
-    //   from: from_who,
-    // //The email to contact
-    //   to: 'magnomathias21@gmail.com',
-    // //Subject and text data  
-    //   subject: 'Hello from Mailgun',
-    //   html: 'Hello, This is not a plain-text email, I wanted to test some spicy Mailgun sauce in NodeJS! <a href="http://0.0.0.0:3030/validate?' + req.params.mail + '">Click here to add your email address to a mailing list</a>'
-    // }
+    var standBust = standbust;
+    var leanBust = leaningbust;
+    var lieBust = lyingbust;
 
-    // //Invokes the method to send emails given the above data with the helper library
-    // mailgun.messages().send(data, function (err, body) {
-    //     //If there is an error, render the error page
-    //     if (err) {
-    //         res.render('error', { error : err});
-    //         console.log("got an error: ", err);
-    //     }
-    //     //Else we can greet    and leave
-    //     else {
-    //         //Here "submitted.jade" is the view file for this landing page 
-    //         //We pass the variable "email" from the url parameter in an object rendered by Jade
-    //         res.render('submitted', { email : req.params.mail });
-    //         console.log(body);
-    //     }
-    // });
+    if ((standBust - snugbust) <= 7 && ((leanBust - standBust) > 3 || (leanBust - lieBust) > 3))
+    {
+        adjBust = (Number(standBust) + Number(leanBust) + Number(lieBust)) / 3;
+    }
+    
+    else if ((leanBust - standBust) > 2)
+    {
+        adjBust = (Number(standBust) + Number(leanBust)) / 2;
+    }
+    
+    else
+    {
+        adjBust = leanBust;
+    }
 
+    //cup calculation
 
-//   response = "Fantastic! thanks for contacting us. We will get back to you on " + email + " shortly with a list of bras that are ideal for you."; //Default response from the webhook to show it's working
+    cupNumber1 = Math.floor(adjBust - adjUnderbust);
+    cupNumber2 = Math.ceil(adjBust - adjUnderbust);
+    
+    var usCup1 = uscup[cupNumber1];
+    var usCup2 = uscup[cupNumber2];
+    var ukCup1 = ukcup[cupNumber1];
+    var ukCup2 = ukcup[cupNumber2];
 
-//   res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
-//   res.send(JSON.stringify({ "speech": response, "displayText": response 
-//   //"speech" is the spoken version of the response, "displayText" is the visual version
-//   }));
-// };
+    if ((cupNumber1 >= 9) || (cupNumber2 >= 9) && (tightbust > 32)) 
+    {
+        return "Important: Based on the measurements you entered, your bra estimation may not be as accurate. A variety of factors play into finding the perfect bra, this is only a starting point!";
+    }
 
+    //final bra size calculation
+    if ((snugbust - tightbust) > 2.5)
+    {
+        adjBand = band - 2;
+        adjusCup1 = uscup[cupNumber1 + 1];
+        adjusCup2 = uscup[cupNumber2 + 1];
+        adjukCup1 = ukcup[cupNumber1 + 1];
+        adjukCup2 = ukcup[cupNumber2 + 1];
+        return "Your band has been Sister Sized Down for added support";
+    }
+
+    else
+    {
+        adjBand = band;
+        adjusCup1 = usCup1;
+        adjusCup2 = usCup2;
+        adjukCup1 = ukCup1;
+        adjukCup2 = ukCup2;
+    }
+
+    if (cupNumber1 != cupNumber2)
+    {
+        // usBraSize = document.getElementById("usBra").innerHTML = adjBand + adjusCup1 + "/" + adjusCup2;
+        ukBraSize = document.getElementById("ukBra").innerHTML = adjBand + adjukCup1 + "/" + adjukCup2;
+        return "The difference between your underbust and bust is not a whole number, so either of these two cup sizes may work.";
+    }
+
+    else
+    {
+        // usBraSize = document.getElementById("usBra").innerHTML = adjBand + adjusCup1;
+        ukBraSize = document.getElementById("ukBra").innerHTML = adjBand + adjukCup1;
+    }
+
+    //sister size calculation
+    
+    var bandUp = (adjBand + 2);
+    var bandDown = (adjBand - 2);
+    
+    if ((snugbust - tightbust) > 2.5)
+    {
+        var usCup1Up = uscup[cupNumber1 + 2];
+        var usCup2Up = uscup[cupNumber2 + 2];
+        var usCup1Down = uscup[cupNumber1];
+        var usCup2Down = uscup[cupNumber2];
+        var ukCup1Up = ukcup[cupNumber1 + 2];
+        var ukCup2Up = ukcup[cupNumber2 + 2];
+        var ukCup1Down = ukcup[cupNumber1];
+        var ukCup2Down = ukcup[cupNumber2];
+    }
+    
+    else
+    {
+        var usCup1Up = uscup[cupNumber1 + 1];
+        var usCup2Up = uscup[cupNumber2 + 1];
+        var usCup1Down = uscup[cupNumber1 - 1];
+        var usCup2Down = uscup[cupNumber2 - 1];
+        var ukCup1Up = ukcup[cupNumber1 + 1];
+        var ukCup2Up = ukcup[cupNumber2 + 1];
+        var ukCup1Down = ukcup[cupNumber1 - 1];
+        var ukCup2Down = ukcup[cupNumber2 - 1];
+    }
+    
+    if (cupNumber1 != cupNumber2)
+    {
+        // usSisterUp = document.getElementById("usBraUp").innerHTML = bandUp + usCup1Down + "/" + usCup2Down;
+        // usSisterDown = document.getElementById("usBraDown").innerHTML = bandDown + usCup1Up + "/" + usCup2Up;
+        ukSisterUp = document.getElementById("ukBraUp").innerHTML = bandUp + ukCup1Down + "/" + ukCup2Down;
+        ukSisterDown = document.getElementById("ukBraDown").innerHTML = bandDown + ukCup1Up + "/" + ukCup2Up;
+    }
+    
+    else
+    {
+        // usSisterUp = document.getElementById("usBraUp").innerHTML = bandUp + usCup1Down;
+        // usSisterDown = document.getElementById("usBraDown").innerHTML = bandDown + usCup1Up;
+        ukSisterUp = document.getElementById("ukBraUp").innerHTML = bandUp + ukCup1Down;
+        ukSisterDown = document.getElementById("ukBraDown").innerHTML = bandDown + ukCup1Up;
+    }
+
+}
