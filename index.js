@@ -204,7 +204,8 @@ const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbus
 restService.post('/hook', function (req, res) {
 
     console.log('hook request');
-    console.log(req);
+    console.log("req: "+ req.body);
+    console.log("res: "+ res)
     console.log(res);
 
     try {
