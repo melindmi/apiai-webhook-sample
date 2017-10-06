@@ -10,7 +10,7 @@ restService.post('/hook', function (req, res) {
 
     console.log('hook request');
     console.log("req: "+ JSON.stringify(req.body));
-    console.log("req: "+ JSON.stringify(req.header));
+    console.log("req: "+ JSON.stringify(req.headers));
     
     try {
         var speech = 'empty speech';
