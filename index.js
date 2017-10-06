@@ -204,9 +204,8 @@ const calculate = function(leaningbust, lyingbust, snugbust, standbust, tightbus
 restService.post('/hook', function (req, res) {
 
     console.log('hook request');
-    console.log("req: "+ req.body);
-    console.log("res: "+ res)
-    console.log(res);
+    console.log("req: "+ JSON.stringify(req));
+    console.log("res: "+ JSON.stringify(res));
 
     try {
         var speech = 'empty speech';
