@@ -49,18 +49,18 @@ restService.post("/hook", function (req, res) {
                 .catch(err => console.log(err))
         }
         else if (intentName === RETRIEVE_PNR) {
-            if (!req.session) {
-                throw new Error('No Session found!!')
-            }
-            else if (!req.session.sessionDetails) {
-                throw new Error('No Session details found!!')
-            }
-            else {
+         //   if (!req.session) {
+         //       throw new Error('No Session found!!')
+         //   }
+        //    else if (!req.session.sessionDetails) {
+        //        throw new Error('No Session details found!!')
+         //   }
+         //   else {
                 RetrievePNR(req)
                     .then( rsp => res.json(rsp) )
                     .catch( err => console.log(err))
-            }
-        }
+         //   }
+       // }
     } catch (err) {
         console.error("Can't process request", err)
 
