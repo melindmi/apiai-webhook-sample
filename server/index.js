@@ -58,7 +58,7 @@ restService.post("/hook", function (req, res) {
                                                 var txt = "Hi, " + pxname + "!"
                                                 return res.json({
                                                     contexts: [
-                                                        name: 'RetrievePNR'
+                                                        name: 'RetrievePNR',
                                                         parameters: {
                                                             name: pxname
                                                         }
