@@ -24,7 +24,7 @@ function getIntentName(body) {
     var intentName = ''
 
     if (body) {
-        var requestBody = req.body
+        var requestBody = body
         if (requestBody.result) {
             if (requestBody.result.metadata) {
                 intentName = requestBody.result.metadata.intentName;
