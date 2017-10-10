@@ -56,9 +56,14 @@ restService.post("/hook", function (req, res) {
         //        throw new Error('No Session details found!!')
          //   }
          //   else {
-                RetrievePNR(req)
-                    .then( rsp => res.json(rsp) )
-                    .catch( err => console.log(err))
+                SendLogin(req, req.headers)
+                .then( 
+                     RetrievePNR(req)
+                        .then( rsp => res.json(rsp) )
+                        .catch( err => console.log(err))
+                )
+                .catch(err => console.log(err))
+               
          //   }
        // }
     } catch (err) {
