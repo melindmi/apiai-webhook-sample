@@ -67,6 +67,7 @@ restService.post("/hook", function (req, res) {
                                                         }
                                                      ]
                                                     }
+                                                })
                                         })
                                       .catch( err => { throw new Error(JSON.stringify(err)) } )
                })  
