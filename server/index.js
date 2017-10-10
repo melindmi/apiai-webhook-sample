@@ -62,7 +62,7 @@ restService.post("/hook", function (req, res) {
                                                         parameters: {
                                                             name: pxname
                                                         }
-                                                     ]   
+                                                     ],   
                                                     source: 'apiai-webhook-sample' })
                                         })
                                       .catch( err => { throw new Error(JSON.stringify(err)) } )
