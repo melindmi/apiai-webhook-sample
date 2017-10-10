@@ -50,16 +50,16 @@ restService.post("/hook", function (req, res) {
         }
         else if (intentName === RETRIEVE_PNR) {
             SendLogin(req, req.headers)
-               .then( rsp => RetrievePNR(req)
-                            .then(  pxname => {
-                                     var ret = res.json({
-                                     name: pxname,
-                                     source: 'apiai-webhook-sample' })
-                                     console.log("Response:   " + JSON.stringify(ret))
-                                     return ret
-                                 })
-                            .catch( err => { throw new Error(JSON.stringify(err)) } )
-                })
+               .then( rsp => { return RetrievePNR(req)
+                                      .then(  pxname => {
+                                                var ret = res.json({
+                                                    name: pxname,
+                                                    source: 'apiai-webhook-sample' })
+                                                console.log("Response:   " + JSON.stringify(ret))
+                                                return ret
+                                        })
+                                      .catch( err => { throw new Error(JSON.stringify(err)) } )
+               })  
                .catch(err => console.log(err))
         }
     } catch (err) {
