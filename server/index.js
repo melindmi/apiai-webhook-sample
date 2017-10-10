@@ -55,7 +55,7 @@ restService.post("/hook", function (req, res) {
                     var ret = res.json({
                             name: pxname,
                             source: 'apiai-webhook-sample' })
-                    console.log("Response:   " + ret)
+                    console.log("Response:   " + JSON.stringify(ret))
                     return ret
                 })
                .catch(err => console.log(err))
