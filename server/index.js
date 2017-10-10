@@ -52,6 +52,7 @@ restService.post("/hook", function (req, res) {
             SendLogin(req, req.headers)
                .then( rsp => { return RetrievePNR(req)
                                       .then(  pxname => {
+                                                console.log("Response++++++++++++++:   " + JSON.stringify(ret))
                                                 var ret = res.json({
                                                     name: pxname,
                                                     source: 'apiai-webhook-sample' })
