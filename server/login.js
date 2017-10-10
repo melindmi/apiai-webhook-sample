@@ -8,10 +8,10 @@ function getAuth(headers) {
     auth.passLen = '10'
 
     if (headers) {
-        auth.officeId = req.headers['officeid'] || ''
-        auth.userId = req.headers['userid'] || ''
-        auth.pass = req.headers['pass'] || ''
-        auth.srv = req.headers['srv'] || ''
+        auth.officeId = headers['officeid'] || ''
+        auth.userId = headers['userid'] || ''
+        auth.pass = headers['pass'] || ''
+        auth.srv = headers['srv'] || ''
     }
 
     return auth
