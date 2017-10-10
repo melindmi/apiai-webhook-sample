@@ -58,9 +58,11 @@ restService.post("/hook", function (req, res) {
                                                 var txt = "Hi, " + pxname + "!"
                                                 return res.json({
                                                     contexts: [
-                                                        name: 'RetrievePNR',
-                                                        parameters: {
+                                                        {
+                                                            name: 'RetrievePNR',
+                                                            parameters: {
                                                             name: pxname
+                                                            }
                                                         }
                                                      ],   
                                                     source: 'apiai-webhook-sample' })
