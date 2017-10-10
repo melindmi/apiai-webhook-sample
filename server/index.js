@@ -59,9 +59,9 @@ restService.post("/hook", function (req, res) {
                                                 return res.json({
                                                     contexts: [
                                                         {
-                                                            name: 'RetrievePNR',
+                                                            name: 'retrievepnr',
                                                             parameters: {
-                                                            name: pxname
+                                                                name: pxname
                                                             }
                                                         }
                                                      ],   
