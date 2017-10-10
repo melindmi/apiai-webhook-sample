@@ -1,6 +1,6 @@
 import axios from "axios"
 
-import { srv } from "./config"
+//import { srv } from "./config"
 import { isInactiveConversation } from "./utilepars"
 import session from "express-session"
 
@@ -18,7 +18,7 @@ function RetrievePNR(req) {
   var seq = parseInt(sessionDetails.seq, 10) + 1
 
   return axios
-  .get(`${srv}/pnrretrieve`, {
+  .get(`${auth.srv}/pnrretrieve`, {
     params:{
       sessionId : sessionDetails.sessionId,
       seqId: seq,
