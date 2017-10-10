@@ -42,6 +42,8 @@ restService.post("/hook", function (req, res) {
 
     try {
         const intentName = getIntentName(req.body)
+        
+        const parameters = req.body.result.parameters;
 
         if (intentName === DEFAULT_WELCOME) {
             SendLogin(req, req.headers)
@@ -54,6 +56,7 @@ restService.post("/hook", function (req, res) {
                                       .then(  pxname => {
                                                 console.log("Response++++++++++++++:   " + pxname)
                                                 return res.json({
+                                                    displayText: pxname, 
                                                     name: pxname,
                                                     source: 'apiai-webhook-sample' })
                                         })
