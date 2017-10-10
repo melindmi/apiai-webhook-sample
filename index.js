@@ -1,52 +1,77 @@
-'use strict';
+'use strict'
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const restService = express();
-restService.use(bodyParser.json());
+import SendLogin from "./login"
+import RetrievePNR from "./pnrretrieve"
 
+import express from "express"
+import session from "express-session"
+import bodyParser from "body-parser"
 
-restService.post('/hook', function (req, res) {
+const DEFAULT_WELCOME = 'Default Welcome Intent'
+const RETRIEVE_PNR = 'Retrieve PNR'
 
-    console.log('hook request');
-    console.log("req: "+ JSON.stringify(req.body));
-    console.log("req: "+ JSON.stringify(req.headers));
-    
-    try {
-        var speech = 'empty speech';
+const restService = express()
+restService.use(bodyParser.json())
 
-        if (req.body) {
-            var requestBody = req.body;
+restService.use(session({
+    secret: "this_is_a_secret_token",
+    resave: true,
+    saveUninitialized: true
+}))
 
-            if (requestBody.result) {
-                speech = '';
+function getIntentName(body) {
+    var intentName = ''
 
-                if (requestBody.result.fulfillment) {
-                    speech += requestBody.result.fulfillment.speech;
-                    speech += ' ';
-                }
+    if (body) {
+        var requestBody = req.body
+        if (requestBody.result) {
+            if (requestBody.result.metadata) {
+                intentName = requestBody.result.metadata.intentName;
             }
         }
+    }
 
-        console.log('result: ', speech);
+    return intentName
+}
 
-        return res.json({
-            speech: speech,
-            displayText: speech,
-            source: 'apiai-webhook-sample'
-        });
+restService.post("/hook", function (req, res) {
+    console.log("hook request")
+    console.log("req body: "+ JSON.stringify(req.body))
+    console.log("req headers: "+ JSON.stringify(req.headers))
+
+    try {
+        const intentName = getIntentName(req.body)
+
+        if (intentName === DEFAULT_WELCOME) {
+            SendLogin(req, req.headers)
+                .then( rsp => res.json(rsp))
+                .catch(err => console.log(err))
+        }
+        else if (intentName === RETRIEVE_PNR) {
+            if (!req.session) {
+                throw new Error('No Session found!!')
+            }
+            else if (!req.session.sessionDetails) {
+                throw new Error('No Session details found!!')
+            }
+            else {
+                RetrievePNR(req)
+                    .then( rsp => res.json(rsp) )
+                    .catch( err => console.log(err))
+            }
+        }
     } catch (err) {
-        console.error("Can't process request", err);
+        console.error("Can't process request", err)
 
         return res.status(400).json({
             status: {
                 code: 400,
                 errorType: err.message
             }
-        });
+        })
     }
-});
+})
 
-restService.listen((process.env.PORT || 5000), function () {
-    console.log("Server listening");
-});
+restService.listen( process.env.PORT || 5000, function () {
+    console.log("Server listening")
+})
