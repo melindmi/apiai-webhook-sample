@@ -1,18 +1,23 @@
 {
-  "name": "apiai-webhook-sample",
+  "name": "chatbot-api",
   "version": "1.0.0",
-  "description": "Webhook sample",
+  "description": "Chat Bot API",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "./node_modules/.bin/babel-node ./server/index.js",
+    "build": "babel ./server --experimental --source-maps-inline -d ./dist",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dist": "node dist/index.js"
   },
-  "author": "Danil Skachkov <danil.skachkov@speaktoit.com> (https://api.ai)",
   "license": "Apache 2.0",
   "dependencies": {
+    "axios": "^0.16.2",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
+    "express-session": "^1.15.6",
     "jade": "^1.11.0",
-    "mailgun-js": "^0.12.1"
+    "request": "^2.83.0"
   }
 }
