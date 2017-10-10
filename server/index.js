@@ -55,9 +55,10 @@ restService.post("/hook", function (req, res) {
                .then( rsp => { return RetrievePNR(req)
                                       .then(  pxname => {
                                                 console.log("Response++++++++++++++:   " + pxname)
+                                                var txt = "Hi, " + pxname + "!"
                                                 return res.json({
-                                                    speech: pxname,
-                                                    displayText: pxname, 
+                                                    speech: txt,
+                                                    displayText: txt, 
                                                     source: 'apiai-webhook-sample' })
                                         })
                                       .catch( err => { throw new Error(JSON.stringify(err)) } )
