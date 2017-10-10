@@ -6,6 +6,25 @@ import session from "express-session"
 
 import SendLogin from "./login"
 
+function getPassengerName(data) {
+  if(data.Envelope){
+    if(data.Envelope.Body){
+      if(data.Envelope.Body.PNR_Reply){
+        var r = data.Envelope.Body.PNR_Reply
+        if(r.travellerInfo){
+          if(r.travellerInfo.passengerData){
+            var p = r.travellerInfo.passengerData
+            return p.travellerInformation.traveller.surname
+          }
+        }
+      }
+    }
+  }
+
+  return ""
+
+}
+
 function RetrievePNR(req) {
   
   var sessionDetails = req.session.sessionDetails
@@ -36,6 +55,7 @@ function RetrievePNR(req) {
       console.log("---------------- res -----------------") 
       console.log(JSON.stringify(res))
     }   
+    getPassengerName(res.data)
     return  res.data })
   
   .catch( error => { 
