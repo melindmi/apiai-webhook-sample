@@ -55,8 +55,8 @@ function RetrievePNR(req) {
       console.log("---------------- res -----------------") 
       console.log(JSON.stringify(res))
     }   
-    getPassengerName(res.data)
-    return  res.data })
+    
+    return getPassengerName(res.data) })
   
   .catch( error => { 
     console.log("---------------- error -----------------") 
