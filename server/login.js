@@ -1,9 +1,9 @@
 import axios from "axios"
-import { srv } from "./config"
+//import { srv } from "./config"
 
 function getAuth(headers) {
     const auth = {}
-
+    
     auth.org = 'WBSTEST'
     auth.passLen = '10'
 
@@ -11,6 +11,7 @@ function getAuth(headers) {
         auth.officeId = req.headers['officeid'] || ''
         auth.userId = req.headers['userid'] || ''
         auth.pass = req.headers['pass'] || ''
+        auth.srv = req.headers['srv'] || ''
     }
 
     return auth
@@ -34,7 +35,7 @@ function SendLogin(req, headers) {
   const auth = getAuth(headers)
 
   return axios
-  .get(`${srv}/login`, {
+  .get(`${auth.srv}/login`, {
     params: {
       officeId : auth.officeId,
       userId: auth.userId,
