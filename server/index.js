@@ -57,11 +57,7 @@ restService.post("/hook", function (req, res) {
          //   }
          //   else {
                 SendLogin(req, req.headers)
-                .then( 
-                     RetrievePNR(req)
-                        .then( rsp => res.json(rsp) )
-                        .catch( err => console.log(err))
-                )
+                .then( rsp => RetrievePNR(req))
                 .catch(err => console.log(err))
                
          //   }
