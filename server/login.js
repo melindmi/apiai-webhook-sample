@@ -34,7 +34,7 @@ function SendLogin(session, headers) {
   const auth = getAuth(headers)
 
   return axios
-  .get(`${srv}/login`, {
+  .get(`${auth.srv}/login`, {
     params: {
       officeId : auth.officeId,
       userId: auth.userId,
