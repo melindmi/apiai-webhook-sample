@@ -77,7 +77,13 @@ restService.post("/hook", function (req, res) {
         }
         else if(intentName === FLIGHT_AVAILABILITY){
             FlightAvailability(req.session)
-            .then( )
+            .then( rsp => { 
+                return res.json({
+                    data: { 
+                        slack: rsp
+                    }
+                }) 
+            })
             .catch( err => { throw new Error(JSON.stringify(err)) } )
         }
     } catch (err) {
