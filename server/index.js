@@ -9,6 +9,8 @@ import session from "express-session"
 import bodyParser from "body-parser"
 
 import {RetrievePNROK, RetrievePNRKO} from "./conversationrsp"
+import {getChooseFlightConv} from "./slackconversation"
+
 import {DEFAULT_WELCOME, 
 RETRIEVE_PNR,
 FLIGHT_AVAILABILITY} from './intents'
@@ -80,7 +82,7 @@ restService.post("/hook", function (req, res) {
             .then( rsp => { 
                 return res.json({
                     data: { 
-                        slack: rsp
+                        slack: getChooseFlightConv()
                     }
                 }) 
             })
