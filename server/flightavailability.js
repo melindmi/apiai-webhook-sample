@@ -19,7 +19,7 @@ function FlightAvailability(session) {
   var seq = parseInt(sessionDetails.seq, 10) + 1
 
   return axios
-  .get(`${auth.srv}/pnrretrieve`, {
+  .get(`${auth.srv}/availability`, {
     params:{
       sessionId : sessionDetails.sessionId,
       seqId: seq,
