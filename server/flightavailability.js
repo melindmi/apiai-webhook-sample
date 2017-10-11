@@ -47,6 +47,9 @@ function getFlightsOptions(data){
 
 
 function FlightAvailability(session) {
+ 
+  console.log("Session is: " + JSON.stringify(session))
+ 
   var sessionDetails = session.sessionDetails
   var auth = session.auth
   var pnrDetails = session.pnrDetails
