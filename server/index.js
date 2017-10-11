@@ -1,15 +1,17 @@
-
 'use strict'
 
 import SendLogin from "./login"
 import RetrievePNR from "./pnrretrieve"
+import FlightAvailability from './flightavailability'
 
 import express from "express"
 import session from "express-session"
 import bodyParser from "body-parser"
 
-const DEFAULT_WELCOME = 'Default Welcome Intent'
-const RETRIEVE_PNR = 'Retrieve PNR'
+import {RetrievePNROK, RetrievePNRKO} from "./conversationrsp"
+import {DEFAULT_WELCOME, 
+RETRIEVE_PNR,
+FLIGHT_AVAILABILITY} from './intents'
 
 const restService = express()
 restService.use(bodyParser.json())
@@ -24,10 +26,9 @@ function getIntentName(body) {
     var intentName = ''
 
     if (body) {
-        var requestBody = body
-        if (requestBody.result) {
-            if (requestBody.result.metadata) {
-                intentName = requestBody.result.metadata.intentName;
+        if (body.result) {
+            if (body.result.metadata) {
+                intentName = body.result.metadata.intentName;
             }
         }
     }
@@ -42,36 +43,42 @@ restService.post("/hook", function (req, res) {
 
     try {
         const intentName = getIntentName(req.body)
-        
-        const parameters = req.body.result.parameters;
 
         if (intentName === DEFAULT_WELCOME) {
-            SendLogin(req, req.headers)
+            SendLogin(req.session, req.headers)
                 .then( rsp => res.json(rsp))
                 .catch(err => console.log(err))
         }
         else if (intentName === RETRIEVE_PNR) {
-            SendLogin(req, req.headers)
-               .then( rsp => { return RetrievePNR(req)
-                                      .then(  pxname => {
-                                                console.log("Response++++++++++++++:   " + pxname)
-                                                var txt = "Hi, " + pxname + "!"
-                                                return res.json({
-                                                    result: {
-                                                    contexts: [
-                                                        {
-                                                            name: 'retrievepnr',
-                                                            parameters: {
-                                                                name: pxname
-                                                            }
-                                                        }
-                                                     ]
-                                                    }
-                                                })
-                                        })
-                                      .catch( err => { throw new Error(JSON.stringify(err)) } )
-               })  
-               .catch(err => console.log(err))
+            SendLogin(req.session, req.headers)
+            .then ( rsp => { 
+                var pnr = req.body.result.parameters.pnr
+                return RetrievePNR(req.session, pnr)
+                .then( rsp => { 
+
+                    // TODO: try to jump a line
+                    var txt =  RetrievePNROK(rsp.surname, rsp.flight)
+                    
+                    return res.json({
+                        speech: txt,
+                        displayText: txt
+                    }) 
+                })
+                .catch( err => { console.log(JSON.stringify(err)) 
+                 
+                  var txt = RetrievePNRKO(pnr) 
+                  return res.json({
+                        speech: txt,
+                        displayText: txt
+                    })     
+                })
+            })
+            .catch( err => { throw new Error(JSON.stringify(err)) } )
+        }
+        else if(intentName === FLIGHT_AVAILABILITY){
+            FlightAvailability(req.session)
+            .then( )
+            .catch( err => { throw new Error(JSON.stringify(err)) } )
         }
     } catch (err) {
         console.error("Can't process request", err)
