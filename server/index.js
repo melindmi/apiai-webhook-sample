@@ -73,8 +73,7 @@ restService.post("/hook", function (req, res) {
                          followupEvent: {
                             name: "RetrievePNR-Fallback",
                             data: {
-                                 pnr: pnr
-                            }
+                                 pnr: pnr  }
                     })     
                 })
             })
