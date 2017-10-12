@@ -38,7 +38,8 @@ var txt = {
                 {
                     "name": "choosen_flight_1",
                     "text": "Choose 1",
-                    "type": "button"
+                    "type": "button",
+		    "value": "Choose 1"
                 }
             ]
         },
@@ -78,7 +79,8 @@ var txt = {
                 {
                     "name": "choosen_flight_2",
                     "text": "Choose 2",
-                    "type": "button"
+                    "type": "button",
+		    "value": "Choose 2"
                 }
             ]
         }
