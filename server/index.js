@@ -40,6 +40,7 @@ function getIntentName(body) {
 
 restService.post("/hook", function (req, res) {
     console.log("hook request")
+    console.log("req: "+ JSON.stringify(req))
     console.log("req body: "+ JSON.stringify(req.body))
     console.log("req headers: "+ JSON.stringify(req.headers))
 
