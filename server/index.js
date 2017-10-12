@@ -70,8 +70,11 @@ restService.post("/hook", function (req, res) {
                  
                   var txt = RetrievePNRKO(pnr) 
                   return res.json({
-                        speech: txt,
-                        displayText: txt
+                         followupEvent: {
+                            name: "RetrievePNR-Fallback",
+                            data: {
+                                 pnr: pnr
+                            }
                     })     
                 })
             })
