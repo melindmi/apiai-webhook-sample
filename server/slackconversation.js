@@ -48,22 +48,22 @@ var txt = {
               {
 	            "title": "Origin",
                     "value": "HKU",
-                    "short": false
+                    "short": true
 		},
 	        {
 	            "title": "Destination",
                     "value": "SYD",
-                    "short": false
+                    "short": true
 		},
 		{
 	            "title": "DeparturDate",
                     "value": "12/10/17",
-                    "short": false
+                    "short": true
 		}, 
 		{
 	            "title": "DepartureTime",
                     "value": "12:30am",
-                    "short": false
+                    "short": true
 		},  
                 {
 	            "title": "Flight Id",
