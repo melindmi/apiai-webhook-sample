@@ -33,11 +33,11 @@ var txt = {
 	    ],	    
             "color": "#3AA3E3",
             "attachment_type": "default",
-            "callback_id": "flight_selection",
+            "callback_id": "flight_selection_1",
             "actions": [
                 {
-                    "name": "choosen_flight",
-                    "text": "Choose",
+                    "name": "choosen_flight_1",
+                    "text": "Choose 1",
                     "type": "button"
                 }
             ]
@@ -73,11 +73,11 @@ var txt = {
 	    ],	    
             "color": "#FF0000",
             "attachment_type": "default",
-            "callback_id": "flight_selection",
+            "callback_id": "flight_selection_2",
             "actions": [
                 {
-                    "name": "choosen_flight",
-                    "text": "Choose",
+                    "name": "choosen_flight_2",
+                    "text": "Choose 2",
                     "type": "button"
                 }
             ]
