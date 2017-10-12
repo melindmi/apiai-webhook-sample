@@ -75,9 +75,10 @@ restService.post("/hook", function (req, res) {
                             data: {
                                  pnr: pnr  
                             }
-                    }     
+                        }     
+                      })
                 })
-            })
+            })  
             .catch( err => { throw new Error(JSON.stringify(err)) } )
         }
         else if(intentName === FLIGHT_AVAILABILITY){
