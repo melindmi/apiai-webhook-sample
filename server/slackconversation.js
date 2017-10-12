@@ -71,7 +71,7 @@ var txt = {
                     "short": true
 		}
 	    ],	    
-            "color": "#3AA3E3",
+            "color": "#FF0000",
             "attachment_type": "default",
             "callback_id": "flight_selection",
             "actions": [
