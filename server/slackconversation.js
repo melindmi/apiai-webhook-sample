@@ -3,26 +3,46 @@ var txt = {
     "response_type": "in_channel",
     "attachments": [
         {
-            "text": "Choose a flight from the list",
-            "fallback": "If you could read this message, you'd be choosing something fun .....",
+            "title": "Option 1",
+	    "fields": [
+                {	
+                    "Origin": "HKU",
+                    "Destination": "SYD",
+                    "DeparturDate": "12/10/17",
+		    "DepartureTime": "12:30am",
+		    "Flight Id" : "6X1234"	
+                }
+	    ],	    
             "color": "#3AA3E3",
             "attachment_type": "default",
             "callback_id": "flight_selection",
             "actions": [
                 {
-                    "name": "games_list",
-                    "text": "Pick a game...",
-                    "type": "button",
-                    "options": [
-                        {
-                            "text": "Hearts",
-                            "value": "hearts"
-                        },
-                        {
-                            "text": "Bridge",
-                            "value": "bridge"
-                        }
-                    ]
+                    "name": "choosen_flight",
+                    "text": "Choose",
+                    "type": "button"
+                }
+            ]
+        },
+	{
+            "title": "Option 2",
+	    "fields": [
+                {	
+                    "Origin": "HKU",
+                    "Destination": "SYD",
+                    "DeparturDate": "12/10/17",
+		    "DepartureTime": "12:30am",
+		    "Flight Id" : "6X1234"	
+                }
+	    ],	    
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "callback_id": "flight_selection",
+            "actions": [
+                {
+                    "name": "choosen_flight",
+                    "text": "Choose",
+                    "type": "button"
                 }
             ]
         }
