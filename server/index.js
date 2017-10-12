@@ -73,8 +73,9 @@ restService.post("/hook", function (req, res) {
                          followupEvent: {
                             name: "RetrievePNR-Fallback",
                             data: {
-                                 pnr: pnr  }
-                    })     
+                                 pnr: pnr  
+                            }
+                    }     
                 })
             })
             .catch( err => { throw new Error(JSON.stringify(err)) } )
