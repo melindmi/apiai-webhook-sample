@@ -5,13 +5,31 @@ var txt = {
         {
             "title": "Option 1",
 	    "fields": [
-                {	
-                    "Origin": "HKU",
-                    "Destination": "SYD",
-                    "DeparturDate": "12/10/17",
-		    "DepartureTime": "12:30am",
-		    "Flight Id" : "6X1234"	
-                }
+                {
+	            "title": "Origin",
+                    "value": "HKU",
+                    "short": true
+		},
+	        {
+	            "title": "Destination",
+                    "value": "SYD",
+                    "short": true
+		},
+		{
+	            "title": "DeparturDate",
+                    "value": "12/10/17",
+                    "short": true
+		}, 
+		{
+	            "title": "DepartureTime",
+                    "value": "12:30am",
+                    "short": true
+		},  
+                {
+	            "title": "Flight Id",
+                    "value": "6X1234",
+                    "short": true
+		}
 	    ],	    
             "color": "#3AA3E3",
             "attachment_type": "default",
@@ -27,13 +45,31 @@ var txt = {
 	{
             "title": "Option 2",
 	    "fields": [
-                {	
-                    "Origin": "HKU",
-                    "Destination": "SYD",
-                    "DeparturDate": "12/10/17",
-		    "DepartureTime": "12:30am",
-		    "Flight Id" : "6X1234"	
-                }
+              {
+	            "title": "Origin",
+                    "value": "HKU",
+                    "short": false
+		},
+	        {
+	            "title": "Destination",
+                    "value": "SYD",
+                    "short": false
+		},
+		{
+	            "title": "DeparturDate",
+                    "value": "12/10/17",
+                    "short": false
+		}, 
+		{
+	            "title": "DepartureTime",
+                    "value": "12:30am",
+                    "short": false
+		},  
+                {
+	            "title": "Flight Id",
+                    "value": "6X1234",
+                    "short": true
+		}
 	    ],	    
             "color": "#3AA3E3",
             "attachment_type": "default",
