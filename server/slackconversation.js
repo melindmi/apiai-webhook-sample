@@ -3,7 +3,7 @@ var txt = {
     "response_type": "in_channel",
     "attachments": [
         {
-            "text": "Choose a flight",
+            "text": "Choose a flight from the list",
             "fallback": "If you could read this message, you'd be choosing something fun to do right now.",
             "color": "#3AA3E3",
             "attachment_type": "default",
